@@ -79,8 +79,8 @@ export default function NavigationBar(props: Props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <Link href={item.toLowerCase()}>
-            <ListItem key={item} disablePadding>
+          <Link href={item.toLowerCase()} key={item}>
+            <ListItem disablePadding>
               <ListItemButton className="align-center">
                 <ListItemText primary={item} />
               </ListItemButton>

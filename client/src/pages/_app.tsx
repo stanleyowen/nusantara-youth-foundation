@@ -10,6 +10,7 @@ import type { AppProps } from "next/app";
 import NavigationBar from "@/components/navbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
+import { AuthContextProvider } from "@/firebase/auth";
 
 // Enables dark mode by default
 const darkTheme = createTheme({
@@ -28,8 +29,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavigationBar />
-      <Component {...pageProps} />
+      <AuthContextProvider>
+        <NavigationBar />
+        <Component {...pageProps} />
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }

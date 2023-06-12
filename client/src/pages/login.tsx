@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
+import {
+  Box,
+  Link,
+  CssBaseline,
+  TextField,
+  Typography,
+  Container,
+  Divider,
+} from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { Divider } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import {
   signInWithGoogleHandler,
@@ -36,6 +37,8 @@ function Copyright(props: any) {
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
+  const [invalidAuth, setInvalidAuth] = useState<boolean>(false);
   const [isLoading, setLoadingState] = useState<boolean>(false);
   const router = useRouter();
 
@@ -43,28 +46,27 @@ export default function SignIn() {
     event.preventDefault();
     setLoadingState(true);
 
-    const { result, error } = await signInWithEmailAndPasswordHandler(
+    const { result, error }: any = await signInWithEmailAndPasswordHandler(
       email,
       password
     );
 
-    setLoadingState(false);
-
     if (error) {
-      return console.log(error);
-    }
-    console.log(result);
-    // return router.push("/");
+      error.code === "auth/invalid-email"
+        ? setInvalidEmail(true)
+        : setInvalidEmail(false);
+      setInvalidAuth(true);
+    } else if (result) return router.push("/");
+
+    setLoadingState(false);
   };
 
   const handleGoogleSignIn = async () => {
-    const { result, error } = await signInWithGoogleHandler();
+    setLoadingState(true);
+    const { result } = await signInWithGoogleHandler();
 
-    if (error) {
-      return console.log(error);
-    }
-    console.log(result);
-    return router.push("/");
+    setLoadingState(false);
+    if (result) return router.push("/");
   };
 
   return (
@@ -82,15 +84,16 @@ export default function SignIn() {
           Sign In to Psychopal
         </Typography>
 
-        <Button
+        <LoadingButton
           fullWidth
           variant="outlined"
           sx={{ mt: 2, mb: 2 }}
+          loading={isLoading}
           startIcon={<GoogleIcon />}
           onClick={() => handleGoogleSignIn()}
         >
           Sign In with Google
-        </Button>
+        </LoadingButton>
 
         <Divider>OR</Divider>
 
@@ -105,6 +108,14 @@ export default function SignIn() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            error={invalidEmail || invalidAuth}
+            helperText={
+              invalidEmail
+                ? "Please enter a valid email address."
+                : invalidAuth
+                ? "Invalid email or password."
+                : null
+            }
             autoComplete="email"
             autoFocus
           />
@@ -119,6 +130,8 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
+            error={invalidAuth}
+            helperText={invalidAuth ? "Invalid email or password." : null}
             autoComplete="current-password"
           />
 

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -9,6 +9,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Divider } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import {
+  signInWithGoogleHandler,
+  signInWithEmailAndPasswordHandler,
+} from "@/firebase/signIn";
+import { useRouter } from "next/router";
 
 function Copyright(props: any) {
   return (
@@ -29,17 +34,37 @@ function Copyright(props: any) {
 }
 
 export default function SignIn() {
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
-  const [invalidEmail, setInvalidEmail] = React.useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isLoading, setLoadingState] = useState<boolean>(false);
+  const router = useRouter();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    setLoadingState(true);
+
+    const { result, error } = await signInWithEmailAndPasswordHandler(
+      email,
+      password
+    );
+
+    setLoadingState(false);
+
+    if (error) {
+      return console.log(error);
+    }
+    console.log(result);
+    // return router.push("/");
+  };
+
+  const handleGoogleSignIn = async () => {
+    const { result, error } = await signInWithGoogleHandler();
+
+    if (error) {
+      return console.log(error);
+    }
+    console.log(result);
+    return router.push("/");
   };
 
   return (
@@ -57,18 +82,19 @@ export default function SignIn() {
           Sign In to Psychopal
         </Typography>
 
+        <Button
+          fullWidth
+          variant="outlined"
+          sx={{ mt: 2, mb: 2 }}
+          startIcon={<GoogleIcon />}
+          onClick={() => handleGoogleSignIn()}
+        >
+          Sign In with Google
+        </Button>
+
+        <Divider>OR</Divider>
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <Button
-            fullWidth
-            variant="outlined"
-            sx={{ mt: 3, mb: 2 }}
-            startIcon={<GoogleIcon />}
-          >
-            Sign In with Google
-          </Button>
-
-          <Divider>OR</Divider>
-
           <TextField
             margin="normal"
             required
@@ -97,7 +123,7 @@ export default function SignIn() {
           />
 
           <LoadingButton
-            loading={false}
+            loading={isLoading}
             type="submit"
             fullWidth
             variant="contained"

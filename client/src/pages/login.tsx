@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import {
   Box,
   Link,
@@ -42,7 +42,7 @@ export default function SignIn() {
   const [isLoading, setLoadingState] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoadingState(true);
 

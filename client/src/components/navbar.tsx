@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode, Fragment, MouseEvent } from "react";
 import {
   AppBar,
   Box,
@@ -27,7 +27,7 @@ import Link from "next/link";
 
 interface Props {
   window?: () => Window;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const navItems = ["About", "Contact", "Login"];
@@ -41,7 +41,7 @@ function ScrollTop(props: Props) {
     threshold: 100,
   });
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     const anchor = (
       (event.target as HTMLDivElement).ownerDocument || document
     ).querySelector("#back-to-top-anchor");
@@ -92,7 +92,7 @@ export default function NavigationBar(props: Props) {
   );
 
   return (
-    <React.Fragment>
+    <Fragment>
       <CssBaseline />
       <AppBar
         component="nav"
@@ -156,6 +156,6 @@ export default function NavigationBar(props: Props) {
           </Fab>
         </Tooltip>
       </ScrollTop>
-    </React.Fragment>
+    </Fragment>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Grid,
   CssBaseline,
   TextField,
   Typography,
@@ -9,7 +8,6 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { resetPasswordHandler } from "@/firebase/resetPassword";
 
 function Copyright(props: any) {
@@ -77,7 +75,7 @@ export default function ForgotPassword() {
             <LoadingButton
               fullWidth
               variant="outlined"
-              onClick={() => router.push("/login")}
+              onClick={() => router.push("/auth/login")}
             >
               Return to Login
             </LoadingButton>
@@ -109,25 +107,12 @@ export default function ForgotPassword() {
               autoFocus
             />
 
-            <Grid container>
-              <Grid item xs>
-                <Link href="/login" className="link">
-                  Login
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" className="link">
-                  Sign Up
-                </Link>
-              </Grid>
-            </Grid>
-
             <LoadingButton
               loading={isLoading}
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3 }}
               disabled={!email || invalidEmail}
               onClick={() => handleSubmit()}
             >

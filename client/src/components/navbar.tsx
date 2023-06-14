@@ -71,7 +71,12 @@ export default function NavigationBar(props: Props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  const navItems = ["About", "Contact", user?.email ? "Logout" : "Login"];
+  const navItems = [
+    "About",
+    "Contact",
+    user?.email ? "Logout" : "Login",
+    "Get Started",
+  ];
 
   const drawer = (
     <Box onClick={handleDrawerToggle} className="align-center">
@@ -93,6 +98,14 @@ export default function NavigationBar(props: Props) {
     </Box>
   );
 
+  function syncLink(link: string) {
+    const auth = ["Login", "Logout", "Get Started"];
+    // Check if the link is an auth link
+    if (auth.includes(link))
+      // Append the "/auth" prefix to the link and replace spaces with dashes
+      return "/auth/" + link.toLowerCase().replace(/\s+/g, "-");
+    else return "/" + link.toLowerCase().replace(/\s+/g, "-");
+  }
   return (
     <Fragment>
       <CssBaseline />
@@ -120,7 +133,7 @@ export default function NavigationBar(props: Props) {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Button key={item}>
-                <Link href={item.toLowerCase()}>{item}</Link>
+                <Link href={syncLink(item)}>{item}</Link>
               </Button>
             ))}
           </Box>

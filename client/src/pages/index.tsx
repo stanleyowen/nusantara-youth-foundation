@@ -18,7 +18,7 @@ export default function Home() {
       <Container className="align-center">
         <Typography variant="h1" sx={{ mt: 20 }}></Typography>
         <Typography variant="h4">A modern web application template</Typography>
-        <Typography variant="h4">Welcome {user.email}</Typography>
+        <Typography variant="h4">Welcome {user?.email}</Typography>
       </Container>
     </>
   );

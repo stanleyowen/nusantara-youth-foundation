@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import {
   Box,
-  Link,
+  Grid,
   CssBaseline,
   TextField,
   Typography,
@@ -15,6 +15,7 @@ import {
   signInWithEmailAndPasswordHandler,
 } from "@/firebase/signIn";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function Copyright(props: any) {
   return (
@@ -24,12 +25,7 @@ function Copyright(props: any) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Psychopal
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+      {"© " + new Date().getFullYear() + " Psychopal"}
     </Typography>
   );
 }
@@ -95,7 +91,7 @@ export default function SignIn() {
           Sign In with Google
         </LoadingButton>
 
-        <Divider>OR</Divider>
+        <Divider>or</Divider>
 
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -134,6 +130,19 @@ export default function SignIn() {
             helperText={invalidAuth ? "Invalid email or password." : null}
             autoComplete="current-password"
           />
+
+          <Grid container>
+            <Grid item xs>
+              <Link href="/forgot-password" className="link">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="/signup" className="link">
+                Don't have an account? Sign Up
+              </Link>
+            </Grid>
+          </Grid>
 
           <LoadingButton
             loading={isLoading}

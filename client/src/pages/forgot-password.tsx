@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Grid,
@@ -29,9 +29,10 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState<string>("");
   const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
   const [isLoading, setLoadingState] = useState<boolean>(false);
+  const [success, setStatus] = useState<boolean>(false);
+  const router = useRouter();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
     setLoadingState(true);
 
     const { result, error }: any = await resetPasswordHandler(email);
@@ -40,7 +41,7 @@ export default function ForgotPassword() {
       setInvalidEmail(true);
       document.getElementById("email")?.focus();
     } else setInvalidEmail(false);
-    // if (result) return router.push("/");
+    if (result) setStatus(true);
 
     setLoadingState(false);
   };
@@ -66,55 +67,74 @@ export default function ForgotPassword() {
         <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
           Reset your password
         </Typography>
-        <Typography component="h2" variant="body1" sx={{ mb: 3 }}>
-          To reset your password, enter your email below and submit. An email
-          will be sent to you with instructions about how to complete the
-          process.
-        </Typography>
+        {success ? (
+          <>
+            <Typography component="h2" variant="body1" sx={{ mb: 3 }}>
+              Check your email for a link to reset your password. If it doesn’t
+              appear within a few minutes, check your spam folder.
+            </Typography>
 
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={invalidEmail}
-          helperText={
-            invalidEmail ? "Invalid email address. Please try again." : null
-          }
-          onBlur={(e) => verifyEmail(e.target.value)}
-          autoComplete="email"
-          autoFocus
-        />
+            <LoadingButton
+              fullWidth
+              variant="outlined"
+              onClick={() => router.push("/login")}
+            >
+              Return to Login
+            </LoadingButton>
+          </>
+        ) : (
+          <>
+            <Typography component="h2" variant="body1" sx={{ mb: 3 }}>
+              To reset your password, enter your email below and submit. An
+              email will be sent to you with instructions about how to complete
+              the process.
+            </Typography>
 
-        <Grid container>
-          <Grid item xs>
-            <Link href="/login" className="link">
-              Login
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link href="/signup" className="link">
-              Sign Up
-            </Link>
-          </Grid>
-        </Grid>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              error={invalidEmail}
+              helperText={
+                invalidEmail ? "Invalid email address. Please try again." : null
+              }
+              onBlur={(e) => verifyEmail(e.target.value)}
+              autoComplete="email"
+              autoFocus
+            />
 
-        <LoadingButton
-          loading={isLoading}
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          disabled={!email || invalidEmail}
-          onClick={(e) => handleSubmit(e)}
-        >
-          Reset Password
-        </LoadingButton>
+            <Grid container>
+              <Grid item xs>
+                <Link href="/login" className="link">
+                  Login
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/signup" className="link">
+                  Sign Up
+                </Link>
+              </Grid>
+            </Grid>
+
+            <LoadingButton
+              loading={isLoading}
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={!email || invalidEmail}
+              onClick={() => handleSubmit()}
+            >
+              Reset Password
+            </LoadingButton>
+          </>
+        )}
       </Box>
 
       <Copyright sx={{ mt: 8, mb: 4 }} />

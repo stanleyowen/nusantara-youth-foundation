@@ -1,7 +1,25 @@
 .align-center {
   text-align: center;
 }
+
 .my-10 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.link {
+  margin: 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  color: #90caf9;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  text-decoration-color: rgba(144, 202, 249, 0.4);
+}
+
+.link:hover {
+  text-decoration-color: inherit;
 }

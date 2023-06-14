@@ -24,13 +24,12 @@ import {
   KeyboardArrowUp as KeyboardArrowUpIcon,
 } from "@mui/icons-material";
 import Link from "next/link";
+import { useAuthContext } from "@/firebase/auth";
 
 interface Props {
   window?: () => Window;
   children?: ReactNode;
 }
-
-const navItems = ["About", "Contact", "Login"];
 
 function ScrollTop(props: Props) {
   const { window, children } = props;
@@ -63,6 +62,7 @@ function ScrollTop(props: Props) {
 }
 
 export default function NavigationBar(props: Props) {
+  const { user }: any = useAuthContext();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -70,6 +70,8 @@ export default function NavigationBar(props: Props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  const navItems = ["About", "Contact", user?.email ? "Logout" : "Login"];
 
   const drawer = (
     <Box onClick={handleDrawerToggle} className="align-center">

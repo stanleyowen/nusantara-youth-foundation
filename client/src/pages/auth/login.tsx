@@ -140,7 +140,7 @@ export default function SignIn() {
             <Grid item>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="body2">
-                  Don't have an account?&nbsp;
+                  Don&apos;t have an account?&nbsp;
                 </Typography>
                 <Link href="/auth/get-started" className="link">
                   Sign Up

@@ -6,12 +6,11 @@ import {
   TextField,
   Typography,
   Container,
-  Divider,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { signInWithEmailAndPasswordHandler } from "@/firebase/signIn";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { resetPasswordHandler } from "@/firebase/resetPassword";
 
 function Copyright(props: any) {
   return (
@@ -28,29 +27,29 @@ function Copyright(props: any) {
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
-  const [invalidAuth, setInvalidAuth] = useState<boolean>(false);
   const [isLoading, setLoadingState] = useState<boolean>(false);
-  const router = useRouter();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoadingState(true);
 
-    const { result, error }: any = await signInWithEmailAndPasswordHandler(
-      email,
-      password
-    );
+    const { result, error }: any = await resetPasswordHandler(email);
 
     if (error) {
-      error.code === "auth/invalid-email"
-        ? setInvalidEmail(true)
-        : setInvalidEmail(false);
-      setInvalidAuth(true);
-    } else if (result) return router.push("/");
+      setInvalidEmail(true);
+      document.getElementById("email")?.focus();
+    } else setInvalidEmail(false);
+    // if (result) return router.push("/");
 
     setLoadingState(false);
+  };
+
+  const verifyEmail = (email: string) => {
+    const re = /\S+@\S+\.\S+/;
+
+    if (re.test(email)) setInvalidEmail(false);
+    else setInvalidEmail(true);
   };
 
   return (
@@ -83,14 +82,11 @@ export default function ForgotPassword() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          error={invalidEmail || invalidAuth}
+          error={invalidEmail}
           helperText={
-            invalidEmail
-              ? "Please enter a valid email address."
-              : invalidAuth
-              ? "Invalid email or password."
-              : null
+            invalidEmail ? "Invalid email address. Please try again." : null
           }
+          onBlur={(e) => verifyEmail(e.target.value)}
           autoComplete="email"
           autoFocus
         />
@@ -114,7 +110,8 @@ export default function ForgotPassword() {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
-          disabled={!password || !email}
+          disabled={!email || invalidEmail}
+          onClick={(e) => handleSubmit(e)}
         >
           Reset Password
         </LoadingButton>

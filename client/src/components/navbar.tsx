@@ -75,7 +75,7 @@ export default function NavigationBar(props: Props) {
     "About",
     "Contact",
     user?.email ? "Logout" : "Login",
-    "Get Started",
+    user?.email ? null : "Get Started",
   ];
 
   const drawer = (
@@ -85,27 +85,29 @@ export default function NavigationBar(props: Props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <Link href={item.toLowerCase()} key={item}>
-            <ListItem disablePadding>
-              <ListItemButton className="align-center">
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+        {navItems.map((item) =>
+          item ? (
+            <Link href={syncLink(item)} key={item}>
+              <ListItem disablePadding>
+                <ListItemButton className="align-center">
+                  <ListItemText primary={item} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ) : null
+        )}
       </List>
     </Box>
   );
 
   function syncLink(link: string) {
     const auth = ["Login", "Logout", "Get Started"];
-    // Check if the link is an auth link
     if (auth.includes(link))
       // Append the "/auth" prefix to the link and replace spaces with dashes
       return "/auth/" + link.toLowerCase().replace(/\s+/g, "-");
     else return "/" + link.toLowerCase().replace(/\s+/g, "-");
   }
+
   return (
     <Fragment>
       <CssBaseline />
@@ -131,11 +133,13 @@ export default function NavigationBar(props: Props) {
             <Link href={"/"}>Psychopal</Link>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item}>
-                <Link href={syncLink(item)}>{item}</Link>
-              </Button>
-            ))}
+            {navItems.map((item) =>
+              item ? (
+                <Button key={item}>
+                  <Link href={syncLink(item)}>{item}</Link>
+                </Button>
+              ) : null
+            )}
           </Box>
         </Toolbar>
       </AppBar>

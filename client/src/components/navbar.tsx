@@ -112,6 +112,7 @@ export default function NavigationBar(props: Props) {
     <Fragment>
       <CssBaseline />
       <AppBar
+        position="fixed"
         component="nav"
         color="transparent"
         sx={{ backdropFilter: "blur(10px)" }}

@@ -48,13 +48,12 @@ export default function SignIn() {
     );
 
     if (error) {
-      if (error.code === "auth/invalid-email") {
-        setInvalidEmail(true);
-        document.getElementById("email")?.focus();
-      } else {
+      if (error.code === "auth/invalid-email") setInvalidEmail(true);
+      else {
         setInvalidEmail(false);
         setInvalidAuth(true);
       }
+      document.getElementById("email")?.focus();
     } else if (result) return router.push("/");
 
     setLoadingState(false);

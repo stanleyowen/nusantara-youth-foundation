@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/router";
-import { resetPasswordHandler } from "@/firebase/resetPassword";
+import { resetPasswordHandler } from "@/firebase/auth";
 
 function Copyright(props: any) {
   return (
@@ -62,7 +62,7 @@ export default function ForgotPassword() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
+        <Typography component="h1" variant="h5" sx={{ mb: 4 }}>
           Reset your password
         </Typography>
         {success ? (

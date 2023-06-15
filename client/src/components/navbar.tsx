@@ -74,7 +74,7 @@ export default function NavigationBar(props: Props) {
   const navItems = [
     "About",
     "Contact",
-    user?.email ? "Logout" : "Login",
+    user?.email ? "Sign Out" : "Sign In",
     user?.email ? null : "Get Started",
   ];
 
@@ -100,12 +100,20 @@ export default function NavigationBar(props: Props) {
     </Box>
   );
 
+  // Use the dynamic link instead of hardcoding it
   function syncLink(link: string) {
-    const auth = ["Login", "Logout", "Get Started"];
-    if (auth.includes(link))
+    // Change the auth links to /[name]
+    // Except for the link listed in auth
+    const auth = {
+      "Sign In": "login",
+      "Sign Out": "logout",
+      "Get Started": "get-started",
+    };
+
+    if (Object.keys(auth).includes(link)) {
       // Append the "/auth" prefix to the link and replace spaces with dashes
-      return "/auth/" + link.toLowerCase().replace(/\s+/g, "-");
-    else return "/" + link.toLowerCase().replace(/\s+/g, "-");
+      return "/auth/" + auth[link].toLowerCase().replace(/\s+/g, "-");
+    } else return "/" + link.toLowerCase().replace(/\s+/g, "-");
   }
 
   return (

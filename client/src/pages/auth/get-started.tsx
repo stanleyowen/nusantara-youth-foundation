@@ -2,16 +2,18 @@ import React, { useState, FormEvent } from "react";
 import {
   Box,
   Grid,
+  Divider,
   CssBaseline,
   TextField,
   Typography,
   Container,
-  Divider,
 } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
+import { Google } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { signInWithGoogleHandler } from "@/firebase/signIn";
-import { signUpWithEmailAndPasswordHandler } from "@/firebase/signUp";
+import {
+  signInWithGoogleHandler,
+  signUpWithEmailAndPasswordHandler,
+} from "@/firebase/auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -37,7 +39,7 @@ export default function GetStarted() {
   const [isLoading, setLoadingState] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoadingState(true);
 
@@ -51,26 +53,27 @@ export default function GetStarted() {
         setInvalidEmail(true);
         document.getElementById("email")?.focus();
       } else setInvalidEmail(false);
+
       if (error.code === "auth/weak-password") {
         setWeakPassword(true);
         document.getElementById("password")?.focus();
       } else setWeakPassword(false);
+
       if (error.code === "auth/email-already-in-use") {
         setInvalidAuth(true);
         document.getElementById("email")?.focus();
       } else setInvalidAuth(false);
-      console.log(error);
-    } else if (result) return router.push("/");
 
-    setLoadingState(false);
+      setLoadingState(false);
+    } else if (result) return router.push("/");
   };
 
   const handleGoogleSignIn = async () => {
     setLoadingState(true);
-    const { result } = await signInWithGoogleHandler();
+    const { result, error } = await signInWithGoogleHandler();
 
-    setLoadingState(false);
-    if (result) return router.push("/");
+    if (!result || error) setLoadingState(false);
+    else return router.push("/");
   };
 
   return (
@@ -85,15 +88,15 @@ export default function GetStarted() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign Up to Psychopal
+          Sign up to Psychopal
         </Typography>
 
         <LoadingButton
           fullWidth
           variant="outlined"
-          sx={{ mt: 2, mb: 2 }}
+          sx={{ mt: 4, mb: 2 }}
           loading={isLoading}
-          startIcon={<GoogleIcon />}
+          startIcon={<Google />}
           onClick={() => handleGoogleSignIn()}
         >
           Sign Up with Google
@@ -101,13 +104,13 @@ export default function GetStarted() {
 
         <Divider>or</Divider>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSignUp} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email address"
             name="email"
             type="email"
             value={email}
@@ -150,7 +153,7 @@ export default function GetStarted() {
                   Already have an account?&nbsp;
                 </Typography>
                 <Link href="/auth/login" className="link">
-                  Sign In
+                  Sign in
                 </Link>
               </Box>
             </Grid>
@@ -161,10 +164,10 @@ export default function GetStarted() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 4, mb: 2 }}
             disabled={!password || !email}
           >
-            Sign In
+            Sign Up
           </LoadingButton>
         </Box>
       </Box>

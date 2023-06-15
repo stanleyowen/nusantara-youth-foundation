@@ -2,18 +2,18 @@ import React, { useState, FormEvent } from "react";
 import {
   Box,
   Grid,
+  Divider,
   CssBaseline,
   TextField,
   Typography,
   Container,
-  Divider,
 } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
+import { Google } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   signInWithGoogleHandler,
   signInWithEmailAndPasswordHandler,
-} from "@/firebase/signIn";
+} from "@/firebase/auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -38,7 +38,7 @@ export default function SignIn() {
   const [isLoading, setLoadingState] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSignIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoadingState(true);
 
@@ -54,17 +54,16 @@ export default function SignIn() {
         setInvalidAuth(true);
       }
       document.getElementById("email")?.focus();
+      setLoadingState(false);
     } else if (result) return router.push("/");
-
-    setLoadingState(false);
   };
 
   const handleGoogleSignIn = async () => {
     setLoadingState(true);
-    const { result } = await signInWithGoogleHandler();
+    const { result, error } = await signInWithGoogleHandler();
 
-    setLoadingState(false);
-    if (result) return router.push("/");
+    if (!result || error) setLoadingState(false);
+    else return router.push("/");
   };
 
   return (
@@ -79,29 +78,29 @@ export default function SignIn() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign In to Psychopal
+          Sign in to Psychopal
         </Typography>
 
         <LoadingButton
           fullWidth
           variant="outlined"
-          sx={{ mt: 2, mb: 2 }}
+          sx={{ mt: 4, mb: 2 }}
           loading={isLoading}
-          startIcon={<GoogleIcon />}
+          startIcon={<Google />}
           onClick={() => handleGoogleSignIn()}
         >
-          Sign In with Google
+          Sign in with Google
         </LoadingButton>
 
         <Divider>or</Divider>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSignIn} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email address"
             name="email"
             type="email"
             value={email}
@@ -111,7 +110,7 @@ export default function SignIn() {
               invalidEmail
                 ? "Please enter a valid email address."
                 : invalidAuth
-                ? "Invalid email or password."
+                ? "Invalid email or password. Please try again."
                 : null
             }
             autoComplete="email"
@@ -129,23 +128,25 @@ export default function SignIn() {
             type="password"
             id="password"
             error={invalidAuth}
-            helperText={invalidAuth ? "Invalid email or password." : null}
+            helperText={
+              invalidAuth
+                ? "Invalid email or password. Please try again."
+                : null
+            }
             autoComplete="current-password"
           />
 
           <Grid container>
             <Grid item xs>
-              <Link href="/auth/forgot-password" className="link">
+              <Link href="/auth/reset-password" className="link">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="body2">
-                  Don&apos;t have an account?&nbsp;
-                </Typography>
+                <Typography variant="body2">New to Psychopal?&nbsp;</Typography>
                 <Link href="/auth/get-started" className="link">
-                  Sign Up
+                  Join here
                 </Link>
               </Box>
             </Grid>
@@ -156,7 +157,7 @@ export default function SignIn() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 4, mb: 2 }}
             disabled={!password || !email}
           >
             Sign In

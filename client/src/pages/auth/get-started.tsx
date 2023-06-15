@@ -32,7 +32,8 @@ export default function GetStarted() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [invalidEmail, setInvalidEmail] = useState<boolean>(false);
-  const [invalidAuth, setInvalidAuth] = useState<boolean>(false);
+  const [emailInUse, setInvalidAuth] = useState<boolean>(false);
+  const [weakPassword, setWeakPassword] = useState<boolean>(false);
   const [isLoading, setLoadingState] = useState<boolean>(false);
   const router = useRouter();
 
@@ -46,10 +47,18 @@ export default function GetStarted() {
     );
 
     if (error) {
-      error.code === "auth/invalid-email"
-        ? setInvalidEmail(true)
-        : setInvalidEmail(false);
-      setInvalidAuth(true);
+      if (error.code === "auth/invalid-email") {
+        setInvalidEmail(true);
+        document.getElementById("email")?.focus();
+      } else setInvalidEmail(false);
+      if (error.code === "auth/weak-password") {
+        setWeakPassword(true);
+        document.getElementById("password")?.focus();
+      } else setWeakPassword(false);
+      if (error.code === "auth/email-already-in-use") {
+        setInvalidAuth(true);
+        document.getElementById("email")?.focus();
+      } else setInvalidAuth(false);
       console.log(error);
     } else if (result) return router.push("/");
 
@@ -103,12 +112,12 @@ export default function GetStarted() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            error={invalidEmail || invalidAuth}
+            error={invalidEmail || emailInUse}
             helperText={
               invalidEmail
                 ? "Please enter a valid email address."
-                : invalidAuth
-                ? "Invalid email or password."
+                : emailInUse
+                ? "Email already in use. Please try a different email."
                 : null
             }
             autoComplete="email"
@@ -125,8 +134,12 @@ export default function GetStarted() {
             label="Password"
             type="password"
             id="password"
-            error={invalidAuth}
-            helperText={invalidAuth ? "Invalid email or password." : null}
+            error={weakPassword}
+            helperText={
+              weakPassword
+                ? "Password must be at least 6 characters long."
+                : null
+            }
             autoComplete="current-password"
           />
 

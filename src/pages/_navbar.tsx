@@ -31,6 +31,10 @@ interface Props {
   children?: ReactNode;
 }
 
+type Auth = {
+  [key: string]: string;
+};
+
 function ScrollTop(props: Props) {
   const { window, children } = props;
 
@@ -104,7 +108,7 @@ export default function NavigationBar(props: Props) {
   function syncLink(link: string) {
     // Change the auth links to /[name]
     // Except for the link listed in auth
-    const auth = {
+    const auth: Auth = {
       "Sign In": "login",
       "Sign Out": "logout",
       "Get Started": "get-started",

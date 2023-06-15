@@ -7,7 +7,7 @@ import "@/styles/globals.css";
 import "@/styles/properties.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-import NavigationBar from "@/components/navbar";
+import NavigationBar from "./_navbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { AuthContextProvider } from "@/firebase/auth";

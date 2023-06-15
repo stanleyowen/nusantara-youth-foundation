@@ -1,0 +1,31 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: psychopal
+    src: ./
+    engine: next
+    primary: true
+    presets:
+      env:
+        - name: NEXT_FORCE_EDGE_IMAGES
+          default: "true"
+        - name: NEXT_PUBLIC_FIREBASE_API_KEY
+          default: firebase_api_key
+        - name: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+          default: firebase_auth_domain
+        - name: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+          default: firebase_project_id
+        - name: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+          default: firebase_storage_bucket
+        - name: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+          default: firebase_messaging_sender_id
+        - name: NEXT_PUBLIC_FIREBASE_APP_ID
+          default: firebase_app_id
+        - name: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+          default: firebase_measurement_id
+        - name: SERVER_URL
+          default: https://example.com
+        - name: HTTP_AUTH_USERNAME
+          default: username
+        - name: HTTP_AUTH_PASSWORD
+          default: password

@@ -10,10 +10,8 @@ import {
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import { LoadingButton } from "@mui/lab";
-import {
-  signInWithGoogleHandler,
-  signInWithEmailAndPasswordHandler,
-} from "@/firebase/signIn";
+import { signInWithGoogleHandler } from "@/firebase/signIn";
+import { signUpWithEmailAndPasswordHandler } from "@/firebase/signUp";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -42,7 +40,7 @@ export default function GetStarted() {
     event.preventDefault();
     setLoadingState(true);
 
-    const { result, error }: any = await signInWithEmailAndPasswordHandler(
+    const { result, error }: any = await signUpWithEmailAndPasswordHandler(
       email,
       password
     );
@@ -52,6 +50,7 @@ export default function GetStarted() {
         ? setInvalidEmail(true)
         : setInvalidEmail(false);
       setInvalidAuth(true);
+      console.log(error);
     } else if (result) return router.push("/");
 
     setLoadingState(false);

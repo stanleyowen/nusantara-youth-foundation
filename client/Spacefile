@@ -7,8 +7,6 @@ micros:
     primary: true
     presets:
       env:
-        - name: NEXT_FORCE_EDGE_IMAGES
-          default: "true"
         - name: NEXT_PUBLIC_FIREBASE_API_KEY
           default: firebase_api_key
         - name: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN

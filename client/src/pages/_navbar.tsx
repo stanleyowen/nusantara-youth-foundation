@@ -84,7 +84,7 @@ export default function NavigationBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} className="align-center">
-      <Typography variant="h6" className="my-10">
+      <Typography variant="h6" sx={{ mt: 1 }}>
         <Link href={"/"}>Psychopal</Link>
       </Typography>
       <Divider />

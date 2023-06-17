@@ -1,0 +1,35 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: psychopal
+    src: ./
+    engine: nodejs16
+    primary: true
+    public: true
+    run: node index.js
+    presets:
+      env:
+        - name: NODE_ENV
+          default: production
+        - name: CORS_ORIGIN
+          default: http://localhost:3000
+        - name: HTTP_AUTH_USERNAME
+          default: admin
+        - name: HTTP_AUTH_PASSWORD
+          default: admin
+        - name: SERVER_URL
+          default: https://edelweiss.deta.dev
+        - name: LINE_CHANNEL_ACCESS_TOKEN
+          default: your-line-channel-access-token
+        - name: LINE_CHANNEL_ACCESS_TOKEN_BACKUP
+          default: your-backup-line-channel-access-token
+        - name: WEBHOOK_URL
+          default: your-webhook-url
+        - name: ERROR_THREAD_ID
+          default: your-error-thread-id
+        - name: INCOMING_MESSAGE_THREAD_ID
+          default: your-incoming-message-thread-id
+        - name: INCOMING_REQUEST_THREAD_ID
+          default: your-incoming-request-thread-id
+        - name: SPACE_DETA_PROJECT_KEY
+          default: your-deta-project-key

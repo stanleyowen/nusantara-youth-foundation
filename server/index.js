@@ -99,10 +99,10 @@ app.use((req, res, next) => {
     .split(":");
 
   // Exclude Basic Auth for following routes
-  // "/", "/blogs"
+  // "/", "/blogs/*"
   if (
     req.path === "/" ||
-    (req.path === "/blogs" && req.method === "GET") ||
+    (req.path.split("/")[1] === "blogs" && req.method === "GET") ||
     (login &&
       password &&
       login === HTTP_AUTH_USERNAME &&
@@ -129,11 +129,9 @@ app.use((req, res, next) => {
 
 const mainRouter = require("./routes/main.route");
 const detaRouter = require("./routes/deta.route");
-const blogRouter = require("./routes/blog.route");
 const blogsRouter = require("./routes/blogs.route");
 app.use("/", mainRouter);
 app.use("/deta", detaRouter);
-app.use("/blog", blogRouter);
 app.use("/blogs", blogsRouter);
 
 app.listen(PORT, () => {

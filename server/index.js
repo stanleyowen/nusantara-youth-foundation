@@ -55,7 +55,7 @@ app.use((_, res, next) => {
   return next();
 });
 
-app.use(async function (req, res, next) {
+app.use(async function (req, _, next) {
   await axios
     .post(
       `${process.env.WEBHOOK_URL}?thread_id=${process.env.INCOMING_REQUEST_THREAD_ID}
@@ -79,13 +79,13 @@ app.use(async function (req, res, next) {
       }
     )
     .catch((error) => console.error(error));
-  next();
+  return next();
 });
 
 app.use(
   rateLimit({
-    windowMs: 3600000, // 1 hour
-    max: 100,
+    windowMs: 60 * 1000, // 1 minute
+    max: 60,
     handler: (_, res) => res.status(429).send(JSON.stringify(limiter, null, 2)),
   })
 );
@@ -99,11 +99,10 @@ app.use((req, res, next) => {
     .split(":");
 
   // Exclude Basic Auth for following routes
-  // "/", "/line/webhooks", "/verification"
+  // "/", "/blogs"
   if (
     req.path === "/" ||
-    req.path === "/verification" ||
-    (req.path === "/line/webhooks" && req.method === "POST") ||
+    (req.path === "/blogs" && req.method === "GET") ||
     (login &&
       password &&
       login === HTTP_AUTH_USERNAME &&
@@ -120,7 +119,7 @@ app.use((req, res, next) => {
           statusCode: 401,
           statusMessage: "Unauthorized",
           message:
-            "The pages you are trying to access requires authentication. Please try again.",
+            "The page you are trying to access requires authentication. Please try again.",
         },
         null,
         2
@@ -130,8 +129,12 @@ app.use((req, res, next) => {
 
 const mainRouter = require("./routes/main.route");
 const detaRouter = require("./routes/deta.route");
+const blogRouter = require("./routes/blog.route");
+const blogsRouter = require("./routes/blogs.route");
 app.use("/", mainRouter);
 app.use("/deta", detaRouter);
+app.use("/blog", blogRouter);
+app.use("/blogs", blogsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);

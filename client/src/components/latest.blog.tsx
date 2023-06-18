@@ -1,4 +1,4 @@
-import { Grid, Typography, Chip, Button } from "@mui/material";
+import { Grid, Typography, Chip, Button, Stack, Avatar } from "@mui/material";
 import Link from "next/link";
 
 export default function LatestBlog() {
@@ -15,6 +15,7 @@ export default function LatestBlog() {
             </figure>
           </Link>
         </Grid>
+
         <Grid item xs={12} md={5} className="main-blog">
           <Chip
             size="small"
@@ -47,6 +48,16 @@ export default function LatestBlog() {
           >
             Read More
           </Button>
+
+          <Stack direction="row" spacing={1} sx={{ mt: 4 }} alignItems="center">
+            <Avatar
+              src="https://source.unsplash.com/random?face"
+              sx={{ width: 24, height: 24 }}
+            />
+            <Typography variant="caption" color="text.secondary">
+              Author | 2 min read
+            </Typography>
+          </Stack>
         </Grid>
       </Grid>
     </>

@@ -26,12 +26,16 @@
 
 /* Blog */
 figure {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   border-radius: 10px;
+  min-height: 200px;
   overflow: hidden;
 }
 
-.blog-img {
-  border-radius: 10px;
+.blog-img figure img {
   height: 100%;
   width: 100%;
   min-height: 200px;
@@ -40,10 +44,9 @@ figure {
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
 }
-
-.blog-img:hover {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+.blog-img figure:hover img {
+  -webkit-transform: scale(1.08);
+  transform: scale(1.08);
 }
 
 .main-blog {

@@ -1,28 +1,19 @@
-import {
-  Container,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Avatar,
-  Stack,
-  Chip,
-  Button,
-} from "@mui/material";
+import { Grid, Typography, Chip, Button } from "@mui/material";
+import Link from "next/link";
 
 export default function LatestBlog() {
   return (
     <>
       <Grid container spacing={5}>
         <Grid item xs={12} md={7}>
-          <figure>
-            <img
-              className="blog-img"
-              src="https://source.unsplash.com/random?wallpapers"
-              alt="blog"
-            />
-          </figure>
+          <Link href="#" className="blog-img">
+            <figure>
+              <img
+                src="https://source.unsplash.com/random?wallpapers"
+                alt="blog"
+              />
+            </figure>
+          </Link>
         </Grid>
         <Grid item xs={12} md={5} className="main-blog">
           <Chip

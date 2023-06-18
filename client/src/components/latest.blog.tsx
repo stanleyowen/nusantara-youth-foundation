@@ -38,6 +38,8 @@ export default function LatestBlog(
                   blog?.thumbnail || "https://source.unsplash.com/random?blog"
                 }
                 alt="blog"
+                width={500}
+                height={500}
               />
             </figure>
           </Link>

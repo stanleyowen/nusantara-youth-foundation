@@ -1,15 +1,41 @@
-import { Grid, Typography, Chip, Button, Stack, Avatar } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { Grid, Typography, Chip, Button, Stack, Avatar } from "@mui/material";
 
-export default function LatestBlog() {
+type Blog = {
+  key: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  properties: {
+    createdAt: string;
+    estimatedReadTime: string;
+  };
+  author: {
+    name: string;
+    profilePicture: string;
+  };
+};
+
+export default function LatestBlog(
+  props: React.PropsWithChildren<{ blog: Blog | null }>
+) {
+  const { blog } = props;
+  const router = useRouter();
+  const link = `${blog?.key}/${blog?.title
+    .toLocaleLowerCase()
+    .replace(/[\W_]+/g, "-")}`;
+
   return (
     <>
       <Grid container spacing={5}>
         <Grid item xs={12} md={7}>
-          <Link href="#" className="blog-img">
+          <Link href={link} className="blog-img">
             <figure>
               <img
-                src="https://source.unsplash.com/random?wallpapers"
+                src={
+                  blog?.thumbnail || "https://source.unsplash.com/random?blog"
+                }
                 alt="blog"
               />
             </figure>
@@ -19,7 +45,7 @@ export default function LatestBlog() {
         <Grid item xs={12} md={5} className="main-blog">
           <Chip
             size="small"
-            label="Jun 14, 2023"
+            label={blog?.properties?.createdAt}
             color="primary"
             variant="outlined"
             className="inline-flex"
@@ -27,7 +53,7 @@ export default function LatestBlog() {
           />
 
           <Typography variant="h4" component="h4" gutterBottom>
-            Blog Title
+            {blog?.title}
           </Typography>
           <Typography
             variant="body1"
@@ -36,8 +62,7 @@ export default function LatestBlog() {
             sx={{ mb: 2 }}
             align="justify"
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-            voluptatum, quibusdam, quia, voluptate quos dolorum quod
+            {blog?.description}
           </Typography>
 
           <Button
@@ -45,17 +70,22 @@ export default function LatestBlog() {
             color="primary"
             variant="contained"
             className="inline-flex"
+            onClick={() => router.push(link)}
           >
             Read More
           </Button>
 
           <Stack direction="row" spacing={1} sx={{ mt: 4 }} alignItems="center">
             <Avatar
-              src="https://source.unsplash.com/random?face"
               sx={{ width: 24, height: 24 }}
+              src={
+                blog?.author?.profilePicture ||
+                "https://source.unsplash.com/random"
+              }
             />
             <Typography variant="caption" color="text.secondary">
-              Author | 2 min read
+              {blog?.author?.name} | {blog?.properties?.estimatedReadTime} min
+              read
             </Typography>
           </Stack>
         </Grid>

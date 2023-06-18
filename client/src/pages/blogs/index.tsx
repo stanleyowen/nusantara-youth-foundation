@@ -17,7 +17,7 @@ export default function About() {
   return (
     <>
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <LatestBlog />
+        <LatestBlog blog={blogs[0] || null} />
         <Divider sx={{ my: 5 }} />
         <Blog />
       </Container>

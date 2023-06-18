@@ -2,15 +2,25 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-
 import "@/styles/globals.css";
 import "@/styles/properties.css";
+
 import Head from "next/head";
+import axios from "axios";
 import type { AppProps } from "next/app";
-import NavigationBar from "./_navbar";
+import NavigationBar from "../components/navbar.app";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { AuthContextProvider } from "@/firebase/auth";
+
+// Setup axios global defaults
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+axios.defaults.withCredentials = true;
+axios.defaults.headers["Content-Type"] = "application/json";
+axios.defaults.auth = {
+  username: process.env.NEXT_PUBLIC_API_USERNAME || "",
+  password: process.env.NEXT_PUBLIC_API_PASSWORD || "",
+};
 
 // Enables dark mode by default
 const darkTheme = createTheme({

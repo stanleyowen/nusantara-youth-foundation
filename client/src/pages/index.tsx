@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Container, Typography } from "@mui/material";
 import { useAuthContext } from "@/firebase/auth";
 

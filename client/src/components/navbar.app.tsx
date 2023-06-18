@@ -76,8 +76,7 @@ export default function NavigationBar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   const navItems = [
-    "About",
-    "Contact",
+    "Blogs",
     user?.email ? "Sign Out" : "Sign In",
     user?.email ? null : "Get Started",
   ];

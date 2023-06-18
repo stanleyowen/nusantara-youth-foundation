@@ -9,21 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-
-type Blog = {
-  key: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  properties: {
-    createdAt: string;
-    estimatedReadTime: number;
-  };
-  author: {
-    name: string;
-    profilePicture: string;
-  };
-};
+import { Blog } from "./types.util";
 
 export default function LatestBlog(
   props: React.PropsWithChildren<{ blog: Blog[] | null }>
@@ -33,10 +19,9 @@ export default function LatestBlog(
   return (
     <Grid container spacing={4}>
       {blogs.map((blog) => {
-        const link = `${blog?.key}/${blog?.title
+        const link = `blogs/${blog?.key}/${blog?.title
           .toLocaleLowerCase()
           .replace(/[\W_]+/g, "-")}`;
-        console.log(blog?.properties?.estimatedReadTime);
 
         return (
           <Grid item xs={12} md={4} key={blog?.key}>

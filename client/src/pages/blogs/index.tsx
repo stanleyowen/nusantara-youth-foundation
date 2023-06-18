@@ -1,4 +1,4 @@
-import { Container, Divider, Typography } from "@mui/material";
+import { Container, Divider } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LatestBlog from "@/components/latest.blog";

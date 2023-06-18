@@ -1,29 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Blog } from "./types.util";
 import { useRouter } from "next/router";
 import { Grid, Typography, Chip, Button, Stack, Avatar } from "@mui/material";
-
-type Blog = {
-  key: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  properties: {
-    createdAt: string;
-    estimatedReadTime: string;
-  };
-  author: {
-    name: string;
-    profilePicture: string;
-  };
-};
 
 export default function LatestBlog(
   props: React.PropsWithChildren<{ blog: Blog | null }>
 ) {
   const { blog } = props;
   const router = useRouter();
-  const link = `${blog?.key}/${blog?.title
+  const link = `blogs/${blog?.key}/${blog?.title
     .toLocaleLowerCase()
     .replace(/[\W_]+/g, "-")}`;
 

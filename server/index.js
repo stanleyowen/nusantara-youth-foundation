@@ -102,7 +102,6 @@ app.use((req, res, next) => {
   // "/", "/blogs/*"
   if (
     req.path === "/" ||
-    (req.path.split("/")[1] === "blogs" && req.method === "GET") ||
     (login &&
       password &&
       login === HTTP_AUTH_USERNAME &&

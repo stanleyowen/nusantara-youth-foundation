@@ -42,9 +42,6 @@ figure {
 }
 
 .blog-img figure img {
-  height: 100%;
-  width: 100%;
-  min-height: 200px;
   -webkit-transform: scale(1);
   transform: scale(1);
   -webkit-transition: 0.3s ease-in-out;

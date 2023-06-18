@@ -1,7 +1,8 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Divider, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LatestBlog from "@/components/latest.blog";
+import Blog from "@/components/post.blog";
 
 export default function About() {
   const [blogs, setBlogs] = useState([]);
@@ -15,8 +16,10 @@ export default function About() {
 
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ py: 4 }}>
         <LatestBlog />
+        <Divider sx={{ my: 5 }} />
+        <Blog />
       </Container>
     </>
   );

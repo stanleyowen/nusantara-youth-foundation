@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { Grid, Typography, Chip, Button, Stack, Avatar } from "@mui/material";
 
@@ -32,7 +33,7 @@ export default function LatestBlog(
         <Grid item xs={12} md={7}>
           <Link href={link} className="blog-img">
             <figure>
-              <img
+              <Image
                 src={
                   blog?.thumbnail || "https://source.unsplash.com/random?blog"
                 }

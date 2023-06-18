@@ -27,7 +27,7 @@ router.get("/:key", (req, res) => {
 router.post("/", async (req, res) => {
   {
     req.body.properties = {
-      estimateReadTime: await estimateReadTime(req.body.content),
+      estimatedReadTime: await estimateReadTime(req.body.content),
       createdAt: new Date().toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",

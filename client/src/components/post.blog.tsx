@@ -10,24 +10,49 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function LatestBlog() {
+type Blog = {
+  key: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  properties: {
+    createdAt: string;
+    estimatedReadTime: number;
+  };
+  author: {
+    name: string;
+    profilePicture: string;
+  };
+};
+
+export default function LatestBlog(
+  props: React.PropsWithChildren<{ blog: Blog[] | null }>
+) {
+  const blogs = props.blog || [];
+
   return (
     <Grid container spacing={4}>
-      {["1", "2", "3", "4"].map((value) => {
+      {blogs.map((blog) => {
+        const link = `${blog?.key}/${blog?.title
+          .toLocaleLowerCase()
+          .replace(/[\W_]+/g, "-")}`;
+        console.log(blog?.properties?.estimatedReadTime);
+
         return (
-          <Grid item xs={12} md={4}>
-            <Link href="#">
+          <Grid item xs={12} md={4} key={blog?.key}>
+            <Link href={link}>
               <Card className="blog-card">
                 <CardMedia
                   component="img"
                   height="180"
-                  image="https://source.unsplash.com/random?wallpapers"
-                  alt="random"
+                  image={
+                    blog?.thumbnail || "https://source.unsplash.com/random?blog"
+                  }
                 />
                 <CardContent>
                   <Chip
                     size="small"
-                    label="Jun 14, 2023"
+                    label={blog?.properties?.createdAt}
                     color="primary"
                     variant="outlined"
                     className="inline-flex"
@@ -35,11 +60,10 @@ export default function LatestBlog() {
                   />
 
                   <Typography gutterBottom variant="h5" component="div">
-                    Heading
+                    {blog?.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptatibus, quibusdam.
+                    {blog?.description}
                   </Typography>
 
                   <Stack
@@ -49,11 +73,15 @@ export default function LatestBlog() {
                     alignItems="center"
                   >
                     <Avatar
-                      src="https://source.unsplash.com/random?face"
+                      src={
+                        blog?.author?.profilePicture ||
+                        "https://source.unsplash.com/random?profile"
+                      }
                       sx={{ width: 24, height: 24 }}
                     />
                     <Typography variant="caption" color="text.secondary">
-                      Author | 2 min read
+                      {blog?.author?.name} |{" "}
+                      {blog?.properties?.estimatedReadTime} min read
                     </Typography>
                   </Stack>
                 </CardContent>

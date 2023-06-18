@@ -19,7 +19,7 @@ export default function About() {
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <LatestBlog blog={blogs[0] || null} />
         <Divider sx={{ my: 5 }} />
-        <Blog />
+        <Blog blog={blogs.slice(1)} />
       </Container>
     </>
   );

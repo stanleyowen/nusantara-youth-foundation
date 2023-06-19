@@ -129,9 +129,11 @@ app.use((req, res, next) => {
 const mainRouter = require("./routes/main.route");
 const detaRouter = require("./routes/deta.route");
 const blogsRouter = require("./routes/blogs.route");
+const adminRouter = require("./routes/admin.route");
 app.use("/", mainRouter);
 app.use("/deta", detaRouter);
 app.use("/blogs", blogsRouter);
+app.use("/admin", adminRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);

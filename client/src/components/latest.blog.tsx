@@ -31,7 +31,7 @@ export default function LatestBlog(
           </Link>
         </Grid>
 
-        <Grid item xs={12} md={5} className="main-blog">
+        <Grid item xs={12} md={5} sx={{ my: "auto" }}>
           <Chip
             size="small"
             label={blog?.properties?.createdAt}

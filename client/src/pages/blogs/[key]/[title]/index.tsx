@@ -19,8 +19,6 @@ export default function Redirects() {
   const key = router.query?.key;
   const [blog, setBlog] = useState<Blog>();
 
-  console.log(router.query);
-
   // Redirects further to /blogs/[key]/[title]
   useEffect(() => {
     axios

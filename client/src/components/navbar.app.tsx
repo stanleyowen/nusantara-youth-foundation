@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment, MouseEvent } from "react";
+import React, { ReactNode, MouseEvent } from "react";
 import {
   AppBar,
   Box,
@@ -120,7 +120,7 @@ export default function NavigationBar(props: Props) {
   }
 
   return (
-    <Fragment>
+    <>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -187,6 +187,6 @@ export default function NavigationBar(props: Props) {
           </Fab>
         </Tooltip>
       </ScrollTop>
-    </Fragment>
+    </>
   );
 }

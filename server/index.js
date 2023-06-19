@@ -11,7 +11,7 @@ if (
   process.env.NODE_ENV !== "staging"
 ) {
   require("dotenv").config();
-} else require("./lib/crashReporter");
+} else require("./util/crashReporter");
 
 const app = express();
 const PORT = process.env.PORT || 5000;

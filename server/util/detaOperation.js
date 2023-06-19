@@ -2,9 +2,7 @@ const { Deta } = require("deta");
 const axios = require("axios");
 const errorReporter = require("./errorReporter");
 
-const deta = Deta(
-  process.env.SPACE_DETA_PROJECT_KEY ?? process.env.DETA_PROJECT_KEY
-);
+const deta = Deta(process.env.SPACE_DETA_PROJECT_KEY);
 const db = deta.Base("line");
 
 // Fetch all the data from the database

@@ -17,7 +17,7 @@ export default function Redirects() {
         )
       )
       .catch((_) => router.push("/404"));
-  }, []);
+  }, [key, router]);
 
   return <></>;
 }

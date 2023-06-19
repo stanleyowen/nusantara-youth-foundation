@@ -11,7 +11,7 @@ import type { AppProps } from "next/app";
 import NavigationBar from "../components/navbar.app";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { AuthContextProvider } from "@/firebase/auth";
+import { useAuthContext, AuthContextProvider } from "@/firebase/auth";
 
 // Setup axios global defaults
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;

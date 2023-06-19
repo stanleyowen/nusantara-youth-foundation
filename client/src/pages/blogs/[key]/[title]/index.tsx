@@ -25,7 +25,7 @@ export default function Redirects() {
       .get(`/blogs/${key}`)
       .then((res) => setBlog(res.data))
       .catch((_) => router.push("/404"));
-  }, []);
+  }, [key, router]);
 
   return (
     <Container maxWidth="sm" sx={{ mb: 5 }}>

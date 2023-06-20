@@ -37,7 +37,13 @@ export default function LatestBlog(
                 <CardContent>
                   <Chip
                     size="small"
-                    label={blog?.properties?.createdAt}
+                    label={new Date(
+                      blog?.properties?.createdAt || Date.now()
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                     color="primary"
                     variant="outlined"
                     className="inline-flex"

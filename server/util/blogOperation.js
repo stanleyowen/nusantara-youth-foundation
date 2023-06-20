@@ -16,6 +16,11 @@ async function getAllBlogs(cb) {
     data = data.concat(res.items);
   }
 
+  // Sort the data by createdAt property
+  data.sort((a, b) => {
+    return new Date(b.properties.createdAt) - new Date(a.properties.createdAt);
+  });
+
   cb({ statusCode: 200, data });
 }
 

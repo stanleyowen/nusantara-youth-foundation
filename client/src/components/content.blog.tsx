@@ -11,7 +11,14 @@ export default function BlogContent(
   return (
     <>
       <Typography variant="caption" component="h4" color="text.secondary">
-        {blog?.properties?.createdAt}
+        {new Date(blog?.properties?.createdAt || Date.now()).toLocaleDateString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          }
+        )}
       </Typography>
       <Typography variant="h4" component="h1" gutterBottom color="primary">
         {blog?.title}

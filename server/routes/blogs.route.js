@@ -28,11 +28,7 @@ router.post("/", async (req, res) => {
   {
     req.body.properties = {
       estimatedReadTime: await estimateReadTime(req.body.content),
-      createdAt: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
+      createdAt: new Date().toISOString(),
     };
 
     putData(req.body, (cb) =>

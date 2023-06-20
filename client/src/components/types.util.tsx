@@ -5,7 +5,7 @@ type Blog = {
   thumbnail: string;
   content: string;
   properties?: {
-    createdAt: string;
+    createdAt: Date;
     estimatedReadTime: string;
   };
   author: {

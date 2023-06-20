@@ -54,83 +54,76 @@ export default function BlogForm(
   };
 
   return (
-    <Box>
-      <Box
-        component="form"
-        onSubmit={handleCreateBlog}
-        noValidate
-        sx={{ mt: 1 }}
-      >
-        <Typography component="h1" variant="h5" sx={{ mb: 1 }}>
-          Create Blog
-        </Typography>
+    <Box component="form" onSubmit={handleCreateBlog} noValidate sx={{ mt: 1 }}>
+      <Typography component="h1" variant="h5" sx={{ mb: 1 }}>
+        Create Blog
+      </Typography>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="title"
-              label="Title"
-              name="title"
-              value={blog?.title}
-              onChange={handleDataChange}
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              value={blog?.thumbnail}
-              name="thumbnail"
-              label="Thumbnail"
-              id="thumbnail"
-              onChange={handleDataChange}
-              helperText="A link to the thumbnail image"
-            />
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="title"
+            label="Title"
+            name="title"
+            value={blog?.title}
+            onChange={handleDataChange}
+            autoFocus
+          />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={blog?.thumbnail}
+            name="thumbnail"
+            label="Thumbnail"
+            id="thumbnail"
+            onChange={handleDataChange}
+            helperText="A link to the thumbnail image"
+          />
+        </Grid>
+      </Grid>
 
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          value={blog?.description}
-          name="description"
-          label="Description"
-          id="description"
-          onChange={handleDataChange}
-          multiline
-          helperText="A short description of the blog post (max 200 characters)"
-        />
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        value={blog?.description}
+        name="description"
+        label="Description"
+        id="description"
+        onChange={handleDataChange}
+        multiline
+        helperText="A short description of the blog post (max 200 characters)"
+      />
 
-        <TextField
-          margin="normal"
-          fullWidth
-          required
-          id="content"
-          label="Content"
-          name="content"
-          value={blog?.content}
-          onChange={handleDataChange}
-          multiline
-          helperText="Styling with Markdown is supported"
-        />
+      <TextField
+        margin="normal"
+        fullWidth
+        required
+        id="content"
+        label="Content"
+        name="content"
+        value={blog?.content}
+        onChange={handleDataChange}
+        multiline
+        helperText="Styling with Markdown is supported"
+      />
 
-        <LoadingButton
-          loading={isLoading}
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 4, mb: 2 }}
-          disabled={isLoading}
-        >
-          Create
-        </LoadingButton>
-      </Box>
+      <LoadingButton
+        loading={isLoading}
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ mt: 4, mb: 2 }}
+        disabled={isLoading}
+      >
+        Create
+      </LoadingButton>
     </Box>
   );
 }

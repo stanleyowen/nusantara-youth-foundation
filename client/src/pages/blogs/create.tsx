@@ -45,34 +45,23 @@ export default function CreateBlog() {
   }, [user, router]);
 
   return (
-    <Container component="main">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        <TabContext value={tabValue}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList value={0} onChange={handleTabChange}>
-              <Tab label="Create" value="create" />
-              <Tab label="Preview" value="preview" />
-            </TabList>
+    <Container>
+      <TabContext value={tabValue}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <TabList value={0} onChange={handleTabChange}>
+            <Tab label="Create" value="create" />
+            <Tab label="Preview" value="preview" />
+          </TabList>
 
-            <TabPanel value="create">
-              <BlogForm blog={data} setBlog={setData} />
-            </TabPanel>
+          <TabPanel value="create">
+            <BlogForm blog={data} setBlog={setData} />
+          </TabPanel>
 
-            <TabPanel value="preview">
-              <BlogContent blog={data} />
-            </TabPanel>
-          </Box>
-        </TabContext>
-      </Box>
+          <TabPanel value="preview">
+            <BlogContent blog={data} />
+          </TabPanel>
+        </Box>
+      </TabContext>
     </Container>
   );
 }

@@ -17,6 +17,7 @@ import {
   PropsWithChildren,
 } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function BlogForm(
   props: PropsWithChildren<{
@@ -26,6 +27,7 @@ export default function BlogForm(
 ) {
   const [isLoading, setLoadingState] = useState<boolean>(true);
   const { blog, setBlog } = props;
+  const router = useRouter();
 
   useEffect(() => {
     if (props.blog) setBlog(props.blog);
@@ -45,9 +47,7 @@ export default function BlogForm(
 
     axios
       .post("/blogs", blog)
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => router.push(`/blogs/${res.data?.data?.key}`))
       .catch((err) => console.log(err));
 
     setLoadingState(false);

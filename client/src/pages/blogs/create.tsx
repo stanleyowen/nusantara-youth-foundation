@@ -13,7 +13,6 @@ export default function CreateBlog() {
   const [isLoading, setStatus] = useState<boolean>(true);
   const [tabValue, setTabValue] = useState<string>("create");
   const [data, setData] = useState<Blog>({
-    key: "",
     title: "",
     description: "",
     content: "",
@@ -21,10 +20,6 @@ export default function CreateBlog() {
     author: {
       name: "",
       profilePicture: "",
-    },
-    properties: {
-      createdAt: "",
-      estimatedReadTime: "",
     },
   });
 
@@ -37,9 +32,13 @@ export default function CreateBlog() {
   useEffect(() => {
     if (user?.email)
       axios.get(`/admin/${user?.email}`).then((res) => {
-        if (res.data?.email === user?.email && res.data?.isAdmin)
+        if (res.data?.email === user?.email && res.data?.isAdmin) {
           setStatus(false);
-        else router.push("/blogs");
+          setData({
+            ...data,
+            author: { name: user?.displayName, profilePicture: user?.photoURL },
+          });
+        } else router.push("/blogs");
       });
     else router.push("/blogs");
   }, [user, router]);

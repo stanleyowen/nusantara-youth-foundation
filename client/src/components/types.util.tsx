@@ -1,10 +1,10 @@
 type Blog = {
-  key: string;
+  key?: string;
   title: string;
   description: string;
   thumbnail: string;
   content: string;
-  properties: {
+  properties?: {
     createdAt: string;
     estimatedReadTime: string;
   };

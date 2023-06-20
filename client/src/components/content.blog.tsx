@@ -51,6 +51,7 @@ export default function BlogContent(
         width={700}
         height={400}
         style={{ marginBottom: "2rem" }}
+        className="blog-headerImg"
       />
 
       <Markdown>{blog?.content || ""}</Markdown>

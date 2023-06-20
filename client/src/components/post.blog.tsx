@@ -33,6 +33,7 @@ export default function LatestBlog(
                   image={
                     blog?.thumbnail || "https://source.unsplash.com/random?blog"
                   }
+                  className="blog-img"
                 />
                 <CardContent>
                   <Chip

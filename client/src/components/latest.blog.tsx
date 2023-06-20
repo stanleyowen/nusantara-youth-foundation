@@ -26,6 +26,7 @@ export default function LatestBlog(
                 alt="blog"
                 width={500}
                 height={500}
+                className="blog-headerImg"
               />
             </figure>
           </Link>

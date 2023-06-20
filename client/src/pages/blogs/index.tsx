@@ -1,11 +1,11 @@
-import { Button, Container, Divider } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import LatestBlog from "@/components/latest.blog";
 import Blogs from "@/components/post.blog";
+import LatestBlog from "@/components/latest.blog";
 import { useAuthContext } from "@/firebase/auth";
 import { Blog } from "@/components/types.util";
 import { useRouter } from "next/router";
+import { Button, Container, Divider } from "@mui/material";
 
 export default function About() {
   const [blogs, setBlogs] = useState<Blog[]>();

@@ -12,6 +12,7 @@ import axios from "axios";
 import { LoadingButton } from "@mui/lab";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import BlogForm from "@/components/form.blog";
 import { useAuthContext } from "@/firebase/auth";
 
 export default function CreateBlog() {
@@ -28,10 +29,10 @@ export default function CreateBlog() {
         else router.push("/blogs");
       });
     else router.push("/blogs");
-  }, [user]);
+  }, [user, router]);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main">
       <CssBaseline />
       <Box
         sx={{
@@ -44,7 +45,7 @@ export default function CreateBlog() {
         <Typography component="h1" variant="h5">
           Create Blog
         </Typography>
-        {/* <CreateBlogForm /> */}
+        <BlogForm blog={null} />
       </Box>
     </Container>
   );

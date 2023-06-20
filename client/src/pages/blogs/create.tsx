@@ -14,10 +14,27 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import BlogForm from "@/components/form.blog";
 import { useAuthContext } from "@/firebase/auth";
+import { Blog } from "@/components/types.util";
 
 export default function CreateBlog() {
   const [isLoading, setStatus] = useState<boolean>(true);
+  const [data, setData] = useState<Blog>({
+    key: "",
+    title: "",
+    description: "",
+    content: "",
+    thumbnail: "",
+    author: {
+      name: "",
+      profilePicture: "",
+    },
+    properties: {
+      createdAt: "",
+      estimatedReadTime: "",
+    },
+  });
 
+  console.log(data);
   const router = useRouter();
   const { user }: any = useAuthContext();
 
@@ -45,7 +62,7 @@ export default function CreateBlog() {
         <Typography component="h1" variant="h5">
           Create Blog
         </Typography>
-        <BlogForm blog={null} />
+        <BlogForm blog={data} setBlog={setData} />
       </Box>
     </Container>
   );

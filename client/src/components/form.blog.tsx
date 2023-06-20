@@ -19,37 +19,24 @@ import {
 import axios from "axios";
 
 export default function BlogForm(
-  props: PropsWithChildren<{ blog: Blog | null }>
+  props: PropsWithChildren<{
+    blog: Blog;
+    setBlog: (blog: Blog) => void;
+  }>
 ) {
   const [isLoading, setLoadingState] = useState<boolean>(true);
-  const [data, setData] = useState<Blog>({
-    key: "",
-    title: "",
-    description: "",
-    content: "",
-    thumbnail: "",
-    author: {
-      name: "",
-      profilePicture: "",
-    },
-    properties: {
-      createdAt: "",
-      estimatedReadTime: "",
-    },
-  });
+  const { blog, setBlog } = props;
 
   useEffect(() => {
-    if (props.blog) setData(props.blog);
+    if (props.blog) setBlog(props.blog);
     setLoadingState(false);
   }, [props.blog]);
-
-  const { blog } = props;
 
   const handleDataChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    setData({ ...data, [name]: value });
+    setBlog({ ...blog, [name]: value });
   };
 
   const handleCreateBlog = async (event: FormEvent<HTMLFormElement>) => {
@@ -57,7 +44,7 @@ export default function BlogForm(
     setLoadingState(true);
 
     axios
-      .post("/blogs", data)
+      .post("/blogs", blog)
       .then((res) => {
         console.log(res.data);
       })
@@ -133,7 +120,7 @@ export default function BlogForm(
           value={blog?.content}
           onChange={handleDataChange}
           multiline
-          helperText="Please follow the markdown syntax for the content"
+          helperText="Styling with Markdown is supported"
         />
 
         <LoadingButton

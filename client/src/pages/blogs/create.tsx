@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import BlogForm from "@/components/form.blog";
 import { useAuthContext } from "@/firebase/auth";
 import { Blog } from "@/components/types.util";
+import BlogContent from "@/components/content.blog";
 
 export default function CreateBlog() {
   const [isLoading, setStatus] = useState<boolean>(true);
@@ -66,7 +67,9 @@ export default function CreateBlog() {
               <BlogForm blog={data} setBlog={setData} />
             </TabPanel>
 
-            <TabPanel value="preview">Hi</TabPanel>
+            <TabPanel value="preview">
+              <BlogContent blog={data} />
+            </TabPanel>
           </Box>
         </TabContext>
       </Box>

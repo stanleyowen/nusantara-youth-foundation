@@ -30,7 +30,7 @@ export default function BlogForm(
   useEffect(() => {
     if (props.blog) setBlog(props.blog);
     setLoadingState(false);
-  }, [props.blog]);
+  }, [props.blog, setBlog]);
 
   const handleDataChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -54,20 +54,17 @@ export default function BlogForm(
   };
 
   return (
-    <Box
-      sx={{
-        marginTop: 1,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <Box>
       <Box
         component="form"
         onSubmit={handleCreateBlog}
         noValidate
         sx={{ mt: 1 }}
       >
+        <Typography component="h1" variant="h5" sx={{ mb: 1 }}>
+          Create Blog
+        </Typography>
+
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField

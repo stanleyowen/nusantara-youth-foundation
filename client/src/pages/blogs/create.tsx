@@ -1,23 +1,16 @@
-import React, { useState, useEffect, FormEvent } from "react";
-import {
-  Box,
-  Grid,
-  Divider,
-  CssBaseline,
-  TextField,
-  Typography,
-  Container,
-} from "@mui/material";
+import React, { useState, useEffect, SyntheticEvent } from "react";
 import axios from "axios";
-import { LoadingButton } from "@mui/lab";
+import { Box, Tab, CssBaseline, Container } from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useRouter } from "next/router";
-import Link from "next/link";
+
 import BlogForm from "@/components/form.blog";
 import { useAuthContext } from "@/firebase/auth";
 import { Blog } from "@/components/types.util";
 
 export default function CreateBlog() {
   const [isLoading, setStatus] = useState<boolean>(true);
+  const [tabValue, setTabValue] = useState<string>("create");
   const [data, setData] = useState<Blog>({
     key: "",
     title: "",
@@ -34,9 +27,11 @@ export default function CreateBlog() {
     },
   });
 
-  console.log(data);
   const router = useRouter();
   const { user }: any = useAuthContext();
+
+  const handleTabChange = (_: SyntheticEvent, newValue: string) =>
+    setTabValue(newValue);
 
   useEffect(() => {
     if (user?.email)
@@ -53,16 +48,27 @@ export default function CreateBlog() {
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          width: "100%",
         }}
       >
-        <Typography component="h1" variant="h5">
-          Create Blog
-        </Typography>
-        <BlogForm blog={data} setBlog={setData} />
+        <TabContext value={tabValue}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <TabList value={0} onChange={handleTabChange}>
+              <Tab label="Create" value="create" />
+              <Tab label="Preview" value="preview" />
+            </TabList>
+
+            <TabPanel value="create">
+              <BlogForm blog={data} setBlog={setData} />
+            </TabPanel>
+
+            <TabPanel value="preview">Hi</TabPanel>
+          </Box>
+        </TabContext>
       </Box>
     </Container>
   );

@@ -35,7 +35,6 @@ async function getSpecificBlog(key, cb) {
 }
 
 async function putData(data, cb) {
-  // Check object length
   await db
     .put(data, data.key)
     .then((data) => cb({ statusCode: 200, data }))

@@ -16,7 +16,7 @@ export default function Redirects() {
             .replace(/[\W_]+/g, "-")}`
         )
       )
-      .catch((_) => router.push("/404"));
+      .catch((_) => router.push("/blogs"));
   }, [key, router]);
 
   return <></>;

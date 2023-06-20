@@ -57,7 +57,9 @@ export default function CreateBlog() {
           </TabPanel>
 
           <TabPanel value="preview">
-            <BlogContent blog={data} />
+            <Container maxWidth="sm">
+              <BlogContent blog={data} />
+            </Container>
           </TabPanel>
         </Box>
       </TabContext>

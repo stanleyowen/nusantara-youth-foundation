@@ -146,8 +146,8 @@ export default function NavigationBar(props: Props) {
               <img
                 src="/Community Logo.svg"
                 alt="Psychopal"
-                width={100}
-                height={100}
+                width={200}
+                height={80}
               />
             </Link>
           </Typography>

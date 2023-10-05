@@ -1,16 +1,5 @@
 import Head from "next/head";
-import {
-  Container,
-  Divider,
-  Typography,
-  Chip,
-  Button,
-  Stack,
-  Avatar,
-  Grid,
-} from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
+import { Container, Typography } from "@mui/material";
 import { useAuthContext } from "@/firebase/auth";
 import { KeyboardDoubleArrowDownRounded } from "@mui/icons-material";
 

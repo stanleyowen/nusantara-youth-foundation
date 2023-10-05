@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment, MouseEvent } from "react";
+import React, { ReactNode, MouseEvent } from "react";
 import {
   AppBar,
   Box,
@@ -76,8 +76,7 @@ export default function NavigationBar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   const navItems = [
-    "About",
-    "Contact",
+    "Blogs",
     user?.email ? "Sign Out" : "Sign In",
     user?.email ? null : "Get Started",
   ];
@@ -121,7 +120,7 @@ export default function NavigationBar(props: Props) {
   }
 
   return (
-    <Fragment>
+    <>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -188,6 +187,6 @@ export default function NavigationBar(props: Props) {
           </Fab>
         </Tooltip>
       </ScrollTop>
-    </Fragment>
+    </>
   );
 }

@@ -15,8 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container className="align-center">
-        <Typography variant="h1" sx={{ mt: 20 }}></Typography>
-        <Typography variant="h4" sx={{ ml: "20%", mr: "20%" }}>
+        <Typography variant="h4" sx={{ mt: 15, ml: "20%", mr: "20%" }}>
           &#34;Fostering the{" "}
           <Typography
             variant="h4"
@@ -39,7 +38,7 @@ export default function Home() {
         <Button
           variant="contained"
           color="primary"
-          sx={{ mt: 5, ml: "20%", mr: "20%" }}
+          sx={{ mt: 5, mb: 5, ml: "20%", mr: "20%" }}
           onClick={() =>
             window.open(
               "https://www.instagram.com/nusantarayouthfoundation/",

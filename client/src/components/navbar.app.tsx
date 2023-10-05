@@ -142,7 +142,14 @@ export default function NavigationBar(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <Link href={"/"}>Psychopal</Link>
+            <Link href={"/"}>
+              <img
+                src="/Community Logo.svg"
+                alt="Psychopal"
+                width={100}
+                height={100}
+              />
+            </Link>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) =>

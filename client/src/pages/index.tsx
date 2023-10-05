@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { useAuthContext } from "@/firebase/auth";
 import { KeyboardDoubleArrowDownRounded } from "@mui/icons-material";
 
@@ -36,14 +36,23 @@ export default function Home() {
           mengembangkan dan memanfaatkan potensi generasi muda Indonesia dalam
           menghadapi tantangan global.
         </Typography>
-
-        <KeyboardDoubleArrowDownRounded
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ mt: 5, ml: "20%", mr: "20%" }}
+          onClick={() =>
+            window.open(
+              "https://www.instagram.com/nusantarayouthfoundation/",
+              "_blank"
+            )
+          }
+        >
+          Join Us
+        </Button>
+        {/* <KeyboardDoubleArrowDownRounded
           className="floating-icon"
           sx={{ fontSize: 30, mt: 10, color: "#90caf9" }}
-        />
-
-        {/* Create ca */}
-        <Container maxWidth="lg" sx={{ py: 4 }}></Container>
+        /> */}
       </Container>
     </>
   );

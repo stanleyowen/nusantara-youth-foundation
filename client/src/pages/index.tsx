@@ -17,7 +17,7 @@ export default function Home() {
       <Container className="align-center">
         <Typography variant="h1" sx={{ mt: 20 }}></Typography>
         <Typography variant="h4" sx={{ ml: "20%", mr: "20%" }}>
-          "Fostering the{" "}
+          &#34;Fostering the{" "}
           <Typography
             variant="h4"
             component="span"
@@ -29,7 +29,7 @@ export default function Home() {
           >
             potential
           </Typography>{" "}
-          of the youth, Envisioning a brighter future for Nusantara"
+          of the youth, Envisioning a brighter future for Nusantara&#34;
         </Typography>
         <Typography sx={{ mt: 5, ml: "20%", mr: "20%", fontSize: 14 }}>
           Nusantara Youth Foundation adalah sebuah fondasi yang bertujuan untuk

@@ -41,7 +41,11 @@ export default function About() {
           </Button>
         ) : null}
 
-        <LatestBlog blog={blogs ? blogs[0] : null} />
+        {blogs?.length === 0 ? (
+          <p>No blog post yet.</p>
+        ) : (
+          <LatestBlog blog={blogs ? blogs[0] : null} />
+        )}
         <Divider sx={{ my: 5 }} />
         <Blogs blog={blogs ? blogs.slice(1) : null} />
       </Container>

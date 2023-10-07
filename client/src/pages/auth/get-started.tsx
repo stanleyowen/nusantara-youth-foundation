@@ -25,7 +25,7 @@ function Copyright(props: any) {
       align="center"
       {...props}
     >
-      {"© " + new Date().getFullYear() + " Psychopal"}
+      {"© " + new Date().getFullYear() + " Nusantara Youth Foundation"}
     </Typography>
   );
 }

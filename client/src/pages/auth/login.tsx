@@ -25,7 +25,7 @@ function Copyright(props: any) {
       align="center"
       {...props}
     >
-      {"© " + new Date().getFullYear() + " Psychopal"}
+      {"© " + new Date().getFullYear() + " Nusantara Youth Foundation"}
     </Typography>
   );
 }
@@ -144,7 +144,9 @@ export default function SignIn() {
             </Grid>
             <Grid item>
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="body2">New to Psychopal?&nbsp;</Typography>
+                <Typography variant="body2">
+                  New to Nusantara Youth Foundation?&nbsp;
+                </Typography>
                 <Link href="/auth/get-started" className="link">
                   Join here
                 </Link>

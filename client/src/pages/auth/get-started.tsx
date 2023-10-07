@@ -25,7 +25,7 @@ function Copyright(props: any) {
       align="center"
       {...props}
     >
-      {"© " + new Date().getFullYear() + " Psychopal"}
+      {"© " + new Date().getFullYear() + " Nusantara Youth Foundation"}
     </Typography>
   );
 }
@@ -88,7 +88,7 @@ export default function GetStarted() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign up to Psychopal
+          Sign up to Nusantara Youth Foundation
         </Typography>
 
         <LoadingButton

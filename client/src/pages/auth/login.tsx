@@ -78,7 +78,7 @@ export default function SignIn() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign in to Psychopal
+          Sign in to Nusantara Youth Foundation
         </Typography>
 
         <LoadingButton

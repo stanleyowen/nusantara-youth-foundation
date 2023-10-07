@@ -84,7 +84,7 @@ export default function NavigationBar(props: Props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} className="align-center">
       <Typography variant="h6" sx={{ mt: 1 }}>
-        <Link href={"/"}>Psychopal</Link>
+        <Link href={"/"}>Nusantara Youth Foundation</Link>
       </Typography>
       <Divider />
       <List>
@@ -144,8 +144,8 @@ export default function NavigationBar(props: Props) {
           >
             <Link href={"/"}>
               <img
-                src="/Community Logo.svg"
-                alt="Psychopal"
+                src="/NusantaraYouthFoundation.svg"
+                alt="Nusantara Youth Foundation"
                 width={200}
                 height={80}
               />
